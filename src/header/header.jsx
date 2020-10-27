@@ -30,14 +30,11 @@ const Header = (props) => {
             <TextField
                 id="search"
                 label="Search..."
-                //variant="outlined"
                 onKeyUp={(event) => {
                     if (event.key == "Enter") {
                         search(event.target.value)
                     }
                 }}></TextField>
-            {/* <button onClick={()=>setShowRegister(true)}>register</button>  */}
-
         </HeaderContainer>
     );
 }

@@ -7,7 +7,7 @@ import User from "../user/user";
 const Following = (props) => {
   const { fetching, error, userName } = props;
   const listSize = useRef()
-  const [followingList, setFollowingList] = useState([]);
+  const [followingList, setFollowingList] = useState(null);
   useEffect(() => {
       console.log(userName)
       userName && load(10)
@@ -36,10 +36,13 @@ const Following = (props) => {
         <p>LOADING...</p>
       ) : error ? (
         <p>{error}</p>
-      ) : followingList.length > 0 ? (
+      ) : followingList? (
         <UserList>
           <>
-            <p style = {{cursor:"pointer"}} onClick={()=>load(listSize.current+10)}>Load more</p>
+            <Paginater>
+                <p>{followingList.length} Followers</p>
+                <p style = {{cursor:"pointer"}} onClick={()=>load(listSize.current+10)}>Load more</p>
+            </Paginater>
             {followingList.map((e, index) => (
               <UserListItem key={index}>
                 <User avatar_url={e.avatar_url} content={e.login} />
@@ -66,6 +69,14 @@ const UserList = styled.ul`
   box-shadow: 0 3px 5px 0px rgba(255, 105, 135, .3);
 `;
 
+const Paginater = styled.div`
+  width: 250px;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
 const UserListItem = styled.li`
   margin: 2px;
   background-color: #ffffff;
